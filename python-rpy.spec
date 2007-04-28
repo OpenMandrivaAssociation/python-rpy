@@ -1,20 +1,20 @@
 %define module	rpy
-%define r_version 2.3.1
+%define r_version 2.5.0
 
 Name:           python-%{module}
 Version:        1.0
-Release:        %mkrel 0.rc1.1
+Release:        %mkrel 0.rc2.1
 Summary:        A very simple, yet robust, Python interface to the R Programming Language
 Group:          Development/Python
 License:        BSD-like
 URL:            http://rpy.sourceforge.net/
-Source0:        http://osdn.dl.sourceforge.net/sourceforge/%{module}/%{module}-%{version}-RC1.tar.bz2
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+Source0:        http://osdn.dl.sourceforge.net/sourceforge/%{module}/%{module}-%{version}-RC2.tar.bz2
 Requires:	R-base = %{r_version}
 BuildRequires:  R-base = %{r_version}
 BuildRequires:  python-devel
 BuildRequires:	tetex-latex
 BuildRequires:	texinfo
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 RPy is a very simple, yet robust, Python interface to the R Programming
@@ -31,11 +31,10 @@ RPy are:
  
 
 %prep
-%setup -n %{module}-%{version}-RC1 -q
-
+%setup -qn %{module}-%{version}-RC2
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
+CFLAGS="%{optflags}" %{__python} setup.py build
 
 (
  cd doc
@@ -43,16 +42,16 @@ CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 )
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+rm -rf %{buildroot}
+%{__python} setup.py install -O1 --skip-build --root %{buildroot}
 
 # install info
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/info
-cp doc/rpy.info $RPM_BUILD_ROOT/%{_datadir}/info/
+mkdir -p %{buildroot}%{_datadir}/info
+cp doc/rpy.info %{buildroot}%{_datadir}/info/
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %post
 %_install_info rpy.info
@@ -61,10 +60,8 @@ rm -rf $RPM_BUILD_ROOT
 %_remove_install_info rpy.info
 
 %files
-%defattr(-,root,root,-)
+%defattr(644,root,root,755)
+%doc NEWS README TODO examples/ doc/rpy_html doc/rpy.pdf
 %{py_platsitedir}/*
 %{_datadir}/info/*
-%doc NEWS README TODO examples/ doc/rpy_html doc/rpy.pdf
-
-
 
