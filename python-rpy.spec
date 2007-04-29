@@ -49,7 +49,6 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_datadir}/info
 cp doc/rpy.info %{buildroot}%{_datadir}/info/
 
-
 %clean
 rm -rf %{buildroot}
 
@@ -62,6 +61,24 @@ rm -rf %{buildroot}
 %files
 %defattr(644,root,root,755)
 %doc NEWS README TODO examples/ doc/rpy_html doc/rpy.pdf
-%{py_platsitedir}/*
+%attr(755,root,root) %{py_platsitedir}/_rpy2050.so
+%{py_platsitedir}/rpy-1.0_RC2-py2.5.egg-info
+%{py_platsitedir}/rpy.py
+%{py_platsitedir}/rpy.pyc
+%{py_platsitedir}/rpy.pyo
+%{py_platsitedir}/rpy_io.py
+%{py_platsitedir}/rpy_io.pyc
+%{py_platsitedir}/rpy_io.pyo
+%attr(755,root,root) %{py_platsitedir}/rpy_options.py
+%{py_platsitedir}/rpy_options.pyc
+%{py_platsitedir}/rpy_options.pyo
+%{py_platsitedir}/rpy_tools.py
+%{py_platsitedir}/rpy_tools.pyc
+%{py_platsitedir}/rpy_tools.pyo
+%{py_platsitedir}/rpy_version.py
+%{py_platsitedir}/rpy_version.pyc
+%{py_platsitedir}/rpy_version.pyo
+%{py_platsitedir}/rpy_wintools.py
+%{py_platsitedir}/rpy_wintools.pyc
+%{py_platsitedir}/rpy_wintools.pyo
 %{_datadir}/info/*
-
