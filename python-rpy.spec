@@ -1,9 +1,9 @@
-%define module	rpy
+%define module rpy
 %define r_version 2.5.0
 
 Name:           python-%{module}
 Version:        1.0
-Release:        %mkrel 0.rc2.1
+Release:        %mkrel 0.rc2.2
 Summary:        A very simple, yet robust, Python interface to the R Programming Language
 Group:          Development/Python
 License:        BSD-like
@@ -34,12 +34,12 @@ RPy are:
 %setup -qn %{module}-%{version}-RC2
 
 %build
-CFLAGS="%{optflags}" %{__python} setup.py build
+env CFLAGS="%{optflags}" %{__python} setup.py build
 
-(
+pushd
  cd doc
  make all
-)
+popd
 
 %install
 rm -rf %{buildroot}
