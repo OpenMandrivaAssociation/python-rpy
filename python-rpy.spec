@@ -36,8 +36,7 @@ RPy are:
 %build
 env CFLAGS="%{optflags}" %{__python} setup.py build
 
-pushd
- cd doc
+pushd doc
  make all
 popd
 
