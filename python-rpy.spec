@@ -1,14 +1,14 @@
 %define module rpy
-%define r_version 2.5.0
+%define r_version 2.5.1
 
 Name:           python-%{module}
 Version:        1.0
-Release:        %mkrel 0.rc2.2
+Release:        %mkrel 0.rc3.1
 Summary:        A very simple, yet robust, Python interface to the R Programming Language
 Group:          Development/Python
 License:        BSD-like
 URL:            http://rpy.sourceforge.net/
-Source0:        http://osdn.dl.sourceforge.net/sourceforge/%{module}/%{module}-%{version}-RC2.tar.bz2
+Source0:        http://osdn.dl.sourceforge.net/sourceforge/%{module}/%{module}-%{version}-RC3.tar.bz2
 Requires:	R-base = %{r_version}
 BuildRequires:  R-base = %{r_version}
 BuildRequires:  python-devel
