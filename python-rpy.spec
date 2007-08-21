@@ -1,20 +1,21 @@
 %define module rpy
 %define r_version 2.5.1
 
-Name:           python-%{module}
-Version:        1.0
-Release:        %mkrel 0.rc3.1
-Summary:        A very simple, yet robust, Python interface to the R Programming Language
-Group:          Development/Python
-License:        BSD-like
-URL:            http://rpy.sourceforge.net/
-Source0:        http://osdn.dl.sourceforge.net/sourceforge/%{module}/%{module}-%{version}-RC3.tar.bz2
+Summary:	A very simple, yet robust, Python interface to the R Programming Language
+Name:		python-%{module}
+Version:	1.0
+Release:	%mkrel 0.rc3.1
+Group:		Development/Python
+License:	BSD-like
+URL:		http://rpy.sourceforge.net/
+Source0:	http://osdn.dl.sourceforge.net/sourceforge/%{module}/%{module}-%{version}-RC3.tar.bz2
 Requires:	R-base = %{r_version}
-BuildRequires:  R-base = %{r_version}
-BuildRequires:  python-devel
+BuildRequires:	R-base = %{r_version}
+BuildRequires:	python-devel
+BuildRequires:	python-numpy-devel
 BuildRequires:	tetex-latex
 BuildRequires:	texinfo
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 RPy is a very simple, yet robust, Python interface to the R Programming
@@ -37,7 +38,7 @@ RPy are:
 env CFLAGS="%{optflags}" %{__python} setup.py build
 
 pushd doc
- make all
+make all
 popd
 
 %install
@@ -60,8 +61,8 @@ rm -rf %{buildroot}
 %files
 %defattr(644,root,root,755)
 %doc NEWS README TODO examples/ doc/rpy_html doc/rpy.pdf
-%attr(755,root,root) %{py_platsitedir}/_rpy2050.so
-%{py_platsitedir}/rpy-1.0_RC2-py2.5.egg-info
+%attr(755,root,root) %{py_platsitedir}/_rpy*.so
+%{py_platsitedir}/rpy-*py2.5.egg-info
 %{py_platsitedir}/rpy.py
 %{py_platsitedir}/rpy.pyc
 %{py_platsitedir}/rpy.pyo
