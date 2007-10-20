@@ -1,5 +1,5 @@
 %define module rpy
-%define r_version 2.5.1
+%define r_version 2.6.0
 
 Summary:	A very simple, yet robust, Python interface to the R Programming Language
 Name:		python-%{module}
