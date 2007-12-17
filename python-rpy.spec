@@ -15,7 +15,6 @@ BuildRequires:	python-devel
 BuildRequires:	python-numpy-devel
 BuildRequires:	tetex-latex
 BuildRequires:	texinfo
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 RPy is a very simple, yet robust, Python interface to the R Programming
