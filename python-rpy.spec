@@ -3,12 +3,12 @@
 
 Summary:	A very simple, yet robust, Python interface to the R Programming Language
 Name:		python-%{module}
-Version:	1.0
-Release:	%mkrel 0.rc3.4
+Version:	1.0.1
+Release:	%mkrel 1
 Group:		Development/Python
 License:	BSD-like
 URL:		http://rpy.sourceforge.net/
-Source0:	http://osdn.dl.sourceforge.net/sourceforge/%{module}/%{module}-%{version}-RC3.tar.bz2
+Source0:	http://osdn.dl.sourceforge.net/sourceforge/%{module}/%{module}-%{version}.tar.bz2
 Requires:	R-base = %{r_version}
 BuildRequires:	R-base = %{r_version}
 BuildRequires:	python-devel
