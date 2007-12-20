@@ -31,7 +31,7 @@ RPy are:
  
 
 %prep
-%setup -qn %{module}-%{version}-RC3
+%setup -qn %{module}-%{version}
 
 %build
 env CFLAGS="%{optflags}" %{__python} setup.py build
