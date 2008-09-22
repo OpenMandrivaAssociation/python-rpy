@@ -1,14 +1,15 @@
 %define module rpy
-%define r_version 2.6.2
+%define r_version 2.7.2
 
 Summary:	A very simple, yet robust, Python interface to the R Programming Language
 Name:		python-%{module}
-Version:	1.0.1
-Release:	%mkrel 7
+Version:	1.0.3
+Release:	%mkrel 1
 Group:		Development/Python
 License:	BSD-like
 URL:		http://rpy.sourceforge.net/
-Source0:	http://osdn.dl.sourceforge.net/sourceforge/%{module}/%{module}-%{version}.tar.bz2
+Source0:	http://osdn.dl.sourceforge.net/sourceforge/%{module}/%{module}-%{version}.tar.gz
+Patch0:		rpy-system-lapack.patch
 Requires:	R-base = %{r_version}
 Requires:	python-numpy
 BuildRequires:	R-base = %{r_version}
@@ -34,6 +35,7 @@ RPy are:
 
 %prep
 %setup -qn %{module}-%{version}
+%patch0
 
 %build
 env CFLAGS="%{optflags}" %{__python} setup.py build
