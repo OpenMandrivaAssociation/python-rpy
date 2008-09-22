@@ -17,6 +17,7 @@ BuildRequires:	python-devel
 BuildRequires:	python-numpy-devel
 BuildRequires:	tetex-latex
 BuildRequires:	texinfo
+BuildRequires:	lapack-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
