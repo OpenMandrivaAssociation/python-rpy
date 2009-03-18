@@ -1,18 +1,18 @@
 %define module rpy
-%define r_version 2.8.0
+%define r_version 2.8.1
 %define _requires_exceptions libR.so
 
 Summary:	A very simple, yet robust, Python interface to the R Programming Language
 Name:		python-%{module}
-Version:	2.0.1
+Version:	2.0.3
 Release:	%mkrel 1
 Group:		Development/Python
 License:	BSD-like
 URL:		http://rpy.sourceforge.net/
-Source0:	http://osdn.dl.sourceforge.net/sourceforge/%{module}/%{module}2-%{version}.tar.gz
-Requires:	R-base = %{r_version}
+Source0:	http://downloads.sourceforge.net/%{module}/%{module}2-%{version}.tar.gz
+Requires:	R-base >= %{r_version}
 Requires:	python-numpy
-BuildRequires:	R-base = %{r_version}
+BuildRequires:	R-base >= %{r_version}
 BuildRequires:	python-devel
 BuildRequires:	python-numpy-devel
 BuildRequires:	tetex-latex
