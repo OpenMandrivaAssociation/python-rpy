@@ -2,14 +2,15 @@
 %define r_version 2.8.1
 %define _requires_exceptions libR.so
 
+Epoch:		1
 Summary:	A very simple, yet robust, Python interface to the R Programming Language
 Name:		python-%{module}
-Version:	2.0.3
+Version:	1.0.3
 Release:	%mkrel 2
 Group:		Development/Python
 License:	BSD-like
 URL:		http://rpy.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/%{module}/%{module}2-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/%{module}/%{module}-%{version}.tar.gz
 Requires:	R-base >= %{r_version}
 Requires:	python-numpy
 BuildRequires:	R-base >= %{r_version}
@@ -19,6 +20,11 @@ BuildRequires:	tetex-latex
 BuildRequires:	texinfo
 BuildRequires:	lapack-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+
+# First build failure in from src/RPy.h
+# http://www.mail-archive.com/rpy-list@lists.sourceforge.net/msg01500.html
+# Remaining just a cut&paste from rpy2's setup.py
+Patch0:		rpy-1.0.3-R-base-2.8+.patch
 
 %description
 RPy is a very simple, yet robust, Python interface to the R Programming
@@ -35,7 +41,9 @@ RPy are:
  
 
 %prep
-%setup -qn %{module}2-%{version}
+%setup -qn %{module}-%{version}
+
+%patch0 -p1
 
 %build
 env CFLAGS="%{optflags}" %{__python} setup.py build
@@ -64,24 +72,3 @@ rm -rf %{buildroot}
 %files -f INSTALLED_FILES
 %defattr(-,root,root)
 %doc NEWS README
-#%attr(755,root,root) %{py_platsitedir}/_rpy*.so
-#%{py_platsitedir}/rpy-*py2.5.egg-info
-#%{py_platsitedir}/rpy.py
-#%{py_platsitedir}/rpy.pyc
-#%{py_platsitedir}/rpy.pyo
-#%{py_platsitedir}/rpy_io.py
-#%{py_platsitedir}/rpy_io.pyc
-#%{py_platsitedir}/rpy_io.pyo
-#%attr(755,root,root) %{py_platsitedir}/rpy_options.py
-#%{py_platsitedir}/rpy_options.pyc
-#%{py_platsitedir}/rpy_options.pyo
-#%{py_platsitedir}/rpy_tools.py
-#%{py_platsitedir}/rpy_tools.pyc
-#%{py_platsitedir}/rpy_tools.pyo
-#%{py_platsitedir}/rpy_version.py
-#%{py_platsitedir}/rpy_version.pyc
-#%{py_platsitedir}/rpy_version.pyo
-#%{py_platsitedir}/rpy_wintools.py
-#%{py_platsitedir}/rpy_wintools.pyc
-#%{py_platsitedir}/rpy_wintools.pyo
-#%{_datadir}/info/*
