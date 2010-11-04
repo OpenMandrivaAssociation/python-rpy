@@ -6,7 +6,7 @@ Epoch:		1
 Summary:	A very simple, yet robust, Python interface to the R Programming Language
 Name:		python-%{module}
 Version:	1.0.3
-Release:	%mkrel 2
+Release:	%mkrel 3
 Group:		Development/Python
 License:	BSD-like
 URL:		http://rpy.sourceforge.net/
@@ -25,6 +25,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 # http://www.mail-archive.com/rpy-list@lists.sourceforge.net/msg01500.html
 # Remaining just a cut&paste from rpy2's setup.py
 Patch0:		rpy-1.0.3-R-base-2.8+.patch
+Patch1:		rpy-1.0.3-R-version.patch
 
 %description
 RPy is a very simple, yet robust, Python interface to the R Programming
@@ -44,6 +45,7 @@ RPy are:
 %setup -qn %{module}-%{version}
 
 %patch0 -p1
+%patch1 -p1
 
 %build
 env CFLAGS="%{optflags}" %{__python} setup.py build
@@ -54,6 +56,7 @@ env CFLAGS="%{optflags}" %{__python} setup.py build
 
 %install
 rm -rf %{buildroot}
+PYTHONDONTWRITEBYTECODE= \
 %{__python} setup.py install -O1 --skip-build --root %{buildroot} --record=INSTALLED_FILES
 
 # install info
