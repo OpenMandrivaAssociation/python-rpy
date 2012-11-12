@@ -1,0 +1,62 @@
+diff -p -up rpy-1.0.3/src/RPy.h.orig rpy-1.0.3/src/RPy.h
+--- rpy-1.0.3/src/RPy.h.orig	2009-09-15 18:08:17.000000000 -0300
++++ rpy-1.0.3/src/RPy.h	2009-09-15 18:08:35.000000000 -0300
+@@ -74,7 +74,7 @@
+ #  endif
+ #endif  /* _WIN32 */
+ 
+-#include <Rdevices.h> /* must follow Graphics.h */
++#include <Rembedded.h> /* must follow Graphics.h */
+ 
+ 
+ /* Missing definitions from Rinterface.h or RStartup.h */
+diff -p -up rpy-1.0.3/setup.py.orig rpy-1.0.3/setup.py
+--- rpy-1.0.3/setup.py.orig	2009-09-15 18:20:13.000000000 -0300
++++ rpy-1.0.3/setup.py	2009-09-15 18:27:11.000000000 -0300
+@@ -75,6 +75,30 @@ RHOMES = map( lambda x: x.encode('ascii'
+ if sys.platform=="darwin":
+   darwin_original_version = os.readlink("/Library/Frameworks/R.framework/Versions/Current")
+ 
++def get_rconfig(RHOME, about):
++    r_exec = os.path.join(RHOME, 'bin', 'R')
++    cmd = '"'+r_exec+'" CMD config '+about
++    rp = os.popen(cmd)
++    rconfig = rp.readline()
++    #Twist if 'R RHOME' spits out a warning
++    if rconfig.startswith("WARNING"):
++        rconfig = rp.readline()
++    rconfig = rconfig.strip()
++    #sanity check of what is returned into rconfig
++    rconfig_m = re.match('^(-L.+) (-l.+)$', rconfig)
++    #cheap fix for the case -lblas is returned
++    #FIXME: clean/unify that at one point
++    if rconfig_m is None:
++        rconfig_m = re.match('^(-l.+)$', rconfig)
++    if rconfig_m is None:
++        # MacOSX
++        rconfig_m = re.match('^(-F.+) (-framework.+)$', rconfig)
++    if rconfig_m is None:
++        rconfig_m = re.match('^(-I.+)$', rconfig)
++    if rconfig_m is None:
++        raise Exception(cmd + '\nreturned\n' + rconfig)
++    return rconfig_m.groups()
++
+ modules = []
+ for RHOME in RHOMES:
+    
+@@ -160,11 +184,14 @@ for RHOME in RHOMES:
+     else: # unix-like systems, this is known to work for Linux and Solaris
+         include_dirs = [ os.path.join(RHOME.strip(), 'include'), 
+                          'src', '/usr/share/R/include' ]
+-        libraries=['R','Rlapack']
++        libraries=['R']
+         library_dirs = r_libs
+         runtime_libs = r_libs
+         extra_compile_args=["-shared"]
+         source_files = source_files + ["src/setenv.c"]
++        extra_link_args = get_rconfig(RHOME, '--ldflags') +\
++                          get_rconfig(RHOME, 'LAPACK_LIBS') +\
++                          get_rconfig(RHOME, 'BLAS_LIBS'),
+ 
+     # Discover which array packages are present
+     try: 
