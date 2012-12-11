@@ -1,6 +1,5 @@
 %define module rpy
 %define r_version 2.8.1
-%define _requires_exceptions libR.so
 
 Epoch:		1
 Summary:	A very simple, yet robust, Python interface to the R Programming Language
@@ -19,7 +18,7 @@ BuildRequires:	python-numpy-devel
 BuildRequires:	tetex-latex
 BuildRequires:	texinfo
 BuildRequires:	lapack-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRequires:	pkgconfig(libR)
 
 # First build failure in from src/RPy.h
 # http://www.mail-archive.com/rpy-list@lists.sourceforge.net/msg01500.html
@@ -55,16 +54,12 @@ env CFLAGS="%{optflags}" %{__python} setup.py build
 #popd
 
 %install
-rm -rf %{buildroot}
 PYTHONDONTWRITEBYTECODE= \
 %{__python} setup.py install -O1 --skip-build --root %{buildroot} --record=INSTALLED_FILES
 
 # install info
 #mkdir -p %{buildroot}%{_datadir}/info
 #cp doc/rpy.info %{buildroot}%{_datadir}/info/
-
-%clean
-rm -rf %{buildroot}
 
 %post
 #%_install_info rpy.info
@@ -73,5 +68,4 @@ rm -rf %{buildroot}
 #%_remove_install_info rpy.info
 
 %files -f INSTALLED_FILES
-%defattr(-,root,root)
 %doc NEWS README
