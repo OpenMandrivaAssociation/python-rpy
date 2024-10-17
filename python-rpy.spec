@@ -8,7 +8,7 @@ Version:	1.0.3
 Release:	4
 Group:		Development/Python
 License:	BSD-like
-URL:		http://rpy.sourceforge.net/
+URL:		https://rpy.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/%{module}/%{module}-%{version}.tar.gz
 Requires:	R-base >= %{r_version}
 Requires:	python-numpy
